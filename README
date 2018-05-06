@@ -1,0 +1,49 @@
+# Lpfn Finder
+
+Search for a string in a given infinite streams of data using actors.
+
+## Software Requirements
+
+* Java 8
+* sbt 0.13 (included)
+
+## Build
+
+
+`> sh lpfnBuild`
+
+This runs the included version of `sbt`, getting dependencies, compiling, testing and packaging the app.
+
+## Usage
+
+`> sh lpfnfinder` start the process with default options (from config)
+
+`> sh lpfnfinder -h` show help + parameters
+
+### Parameters
+
+ * `--workers=10`          will spin up 10 workers
+ * `--searchString=Lpfn`   will search for the word Lpfn in the random stream
+ * `--timeout=60000`       will set the timeout to 60000 milliseconds
+
+ The values in the examples are the default and all of them are optional
+
+## Implementation
+
+The app is developed using Scala 2.12 and Akka.
+
+The process uses the *Master-Worker* Akka Pattern where the *Master* creates the *Workers*, providing the Stream, String to find and timeout. Each worker iterates over its own random Stream of data until it finds the string that it is looking for.
+
+
+#### See Class Diagram
+![classDiagram](https://lh3.googleusercontent.com/zfGgL_HRA7OEu5FXnFhxXuvn8YkeVhyeUoBHts00tHIgUDgmWLWdgyJqmSyVsqEhUn98N3kpijoeS5jR1OZDe8kZlkdcJ6FccmMqp3w-U_WpY1ZOKGx7WlIlaMjqG9hOfGAstdcL=w491-h108-no)
+
+#### Messages flow:
+
+![alt text](https://lh3.googleusercontent.com/25qJRABvMxbYiBdPFWWp2VYvJKLEhGmnMOHXKU5NumiHqmNJxc9cwAglbxm2XeAsnVyGYyF2IGVi_jn9hg-aRK-N3MAbxHnEHAAo5HRSqYl27DO-afsCU5voTtpz_0iw-hdMTrO-=w581-h491-no)
+
+
+## Configuration
+
+Default parameters can be changed modifying the values in the file `src/main/resources/application.conf`
+
